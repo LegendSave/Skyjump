@@ -1,43 +1,58 @@
 // Set up the canvas and rendering context
 let body = document.querySelector("body");
 //Fullscreen Button
+let screenUI = document.createElement("div");
+let exitFullscreenIcon = document.getElementById("Capa_1");
 let fullscreenBTN = document.createElement("button");
+let instructValue = true;
+body.appendChild(screenUI);
 let exitscreenfull = true;
 //Creates fullscreen button
 function createButtonFull(){
   if(!exitscreenfull){
-  body.removeChild(exitfullscreenBTN);
+  screenUI.removeChild(exitfullscreenBTN);
   exitscreenfull = true;
   }
-body.appendChild(fullscreenBTN);
-fullscreenBTN.innerHTML = `<?xml version="1.0" ?><svg height="30px" version="1.1" viewBox="0 0 14 14" width="30px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="#000000" id="Core" transform="translate(-215.000000, -257.000000)"><g id="fullscreen" transform="translate(215.000000, 257.000000)"><path d="M2,9 L0,9 L0,14 L5,14 L5,12 L2,12 L2,9 L2,9 Z M0,5 L2,5 L2,2 L5,2 L5,0 L0,0 L0,5 L0,5 Z M12,12 L9,12 L9,14 L14,14 L14,9 L12,9 L12,12 L12,12 Z M9,0 L9,2 L12,2 L12,5 L14,5 L14,0 L9,0 L9,0 Z" id="Shape"/></g></g></g></svg>`;
+screenUI.appendChild(fullscreenBTN);
+screenUI.style.position = "absolute";
+  screenUI.style.bottom = "0.1%";
+  screenUI.style.right = "0.1%";
+  screenUI.style.minwidth = "fit-content";
+  screenUI.style.display = "inline-block";
 fullscreenBTN.style.fontWeight = "bold";
 fullscreenBTN.style.fontSize = "30px";
 fullscreenBTN.style.backgroundColor = "transparent";
 fullscreenBTN.style.borderColor = "transparent";
-fullscreenBTN.style.position = "absolute";
-fullscreenBTN.style.bottom = ".5%";
-fullscreenBTN.style.right = "5.5%";
-exitfullscreenBTN.style.marginBottom = "2px";
 fullscreenBTN.title = "Fullscreen";
 fullscreenBTN.onclick = function(){ enterFullscreen(); exitscreenfull = false;}
 }
+  let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+svg.setAttribute("height", "30px");
+svg.setAttribute("width", "30px");
+svg.setAttribute("viewBox", "0 0 14 14");
+
+let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+path.setAttribute("d", "M2,9 L0,9 L0,14 L5,14 L5,12 L2,12 L2,9 L2,9 Z M0,5 L2,5 L2,2 L5,2 L5,0 L0,0 L0,5 L0,5 Z M12,12 L9,12 L9,14 L14,14 L14,9 L12,9 L12,12 L12,12 Z M9,0 L9,2 L12,2 L12,5 L14,5 L14,0 L9,0 L9,0 Z");
+path.setAttribute("fill", "#000000");
+svg.appendChild(path);
+fullscreenBTN.appendChild(svg);
 //Creates exit fullscreen button
+let exitfullscreenIcon = document.createElement("img");
+exitfullscreenIcon.src = "https://cdn-icons-png.flaticon.com/512/1/1256.png";
+exitfullscreenIcon.setAttribute('width', '30px');
+exitfullscreenIcon.setAttribute('height', '30px');
 let exitfullscreenBTN = document.createElement("button");
 function exitButtonCreate(){
-  body.removeChild(fullscreenBTN);
-body.appendChild(exitfullscreenBTN);
-exitfullscreenBTN.innerHTML = `<svg height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g> <g id="fullscreen_x5F_exit"> <g> <polygon style="fill:#030104;" points="24.586,27.414 29.172,32 32,29.172 27.414,24.586 32,20 20,20 20,32 "></polygon> <polygon style="fill:#030104;" points="0,12 12,12 12,0 7.414,4.586 2.875,0.043 0.047,2.871 4.586,7.414 "></polygon> <polygon style="fill:#030104;" points="0,29.172 2.828,32 7.414,27.414 12,32 12,20 0,20 4.586,24.586 "></polygon> <polygon style="fill:#030104;" points="20,12 32,12 27.414,7.414 31.961,2.871 29.133,0.043 24.586,4.586 20,0 "></polygon> </g> </g> </g> </g></svg>`
+screenUI.removeChild(fullscreenBTN);
+screenUI.appendChild(exitfullscreenBTN);
 exitfullscreenBTN.style.fontWeight = "bold";
 exitfullscreenBTN.style.fontSize = "30px";
 exitfullscreenBTN.style.backgroundColor = "transparent";
 exitfullscreenBTN.style.borderColor = "transparent";
-exitfullscreenBTN.style.position = "absolute";
-exitfullscreenBTN.style.bottom = ".5%";
-exitfullscreenBTN.style.right = "5.5%";
-exitfullscreenBTN.style.marginBottom = "2px";
 exitfullscreenBTN.title = "Exit fullscreen";
 exitfullscreenBTN.onclick = function(){ exitFullscreen();}}
+exitfullscreenBTN.appendChild(exitfullscreenIcon);
+
 //Enters Fullscreen
 function enterFullscreen() {
   var element = document.body;
@@ -74,13 +89,9 @@ function exitFullscreen() {
 function startUp() {
   createButtonFull();
   let info = document.createElement("p");
-  body.appendChild(info);
+  screenUI.appendChild(info);
   info.innerHTML = "&#128712;";
-  info.style.position = "absolute";
-  info.style.bottom = ".5%";
-  info.style.right = "2.5%";
   info.style.fontSize = "30px";
-  info.style.marginBottom = "8px";
   info.title = "©2023, LegendSave";
   let canvas = document.createElement("canvas");
   body.appendChild(canvas);
@@ -90,6 +101,7 @@ function startUp() {
     "url(https://c4.wallpaperflare.com/wallpaper/260/387/688/retro-forest-background-graphics-wallpaper-preview.jpg)";
   canvas.style.backgroundRepeat = "no-repeat";
   canvas.style.backgroundSize = "cover";
+  canvas.setAttribute('alt', "Browser requires reloading, or browser does not support this feature.");
   let ctx = canvas.getContext("2d");
 
   // Define the button properties
@@ -198,8 +210,8 @@ function startUp() {
     if (isMouseOverButton()) {
       // Button was clicked
       body.removeChild(canvas);
-      body.removeChild(info);
-      return game();
+      screenUI.removeChild(info);
+      return canvasLoad();
     }
   });
 
@@ -220,10 +232,132 @@ function startUp() {
   // Initialize the button
   drawButton();
 }
-function game() {
+//Player Assets
+  let playerVX = 0;
+  let objectVY = 0;
+  document.addEventListener("keydown", e => {
+    switch(event.key){
+      case "a":
+        playerVX = -4
+        break;
+      case "d":
+        playerVX = 4;
+        break;
+      case "spacebar":
+        objectVY = 4;
+    }
+  });
+
+function canvasLoad(){
   let canvas = document.createElement("canvas");
   body.appendChild(canvas);
+  canvas.setAttribute('id', 'canvas');
+  canvas.setAttribute('alt', "Browser requires reloading, or browser does not support this feature.");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+    let instruText = {
+    x: canvas.width / 2,
+    y: canvas.height / 2 + 100,
+    titleText: "Controls",
+    font: '50px "retro"',
+    textColor: "white",
+    fillColor: "gray",
+  };
+  window.instruText = instruText;
+  game();
+}
+  let playerX;
+  let playerY;
+  let startPos = true;
+function game() {
+  let canvas = document.getElementById("canvas");
+  if(startPos){
+    playerX = canvas.width/2;
+    playerY = canvas.height/2;
+    startPos = false;
+  }
+  //Gets context, and creates skyblue background
   let ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  requestAnimationFrame(game);
+  ctx.beginPath();
+  ctx.fillStyle = "skyblue";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fill();
+  ctx.closePath();
+
+  //Player positioning
+    playerX += playerVX;
+  if(playerX >= canvas.width + 20){
+    playerX = 0;
+  }else if(playerX <= -20){
+    playerX = canvas.width - 20;
+  }
+  //Player placeholder Sprite
+  ctx.beginPath();
+  ctx.fillStyle = "red";
+  ctx.rect(playerX, playerY, 20, 20);
+  ctx.fill();
+  ctx.closePath();
+  
+      if(instructValue){
+      instructions(canvas);
+  }
+}
+document.addEventListener("keyup", e => {
+    switch(event.key){
+      case "a":
+        playerVX = 0
+        break;
+      case "d":
+        playerVX = 0;
+        break;
+      case "spacebar":
+        objectVY = 0;
+    }
+  });
+//Checking, to save resources for loading
+let instruTitlepara = true;
+function instructions(canvas){
+  let xPos = (canvas.width/2) - 135;
+  let yPos = (canvas.height/2) - 125;
+  let instruDiv;
+  let instruTitle;
+  this.canvas = canvas;
+  let ctx = canvas.getContext("2d");
+  //Background for instructions
+  ctx.beginPath();
+  ctx.fillStyle = "rgb(27, 31, 31)";
+  ctx.fillRect(xPos-198, yPos-162, 664, 556);
+  ctx.fill();
+  ctx.closePath();
+  //Border for instructions
+  ctx.beginPath();
+  ctx.lineWidth = 15;
+  ctx.strokeStyle = "gray";
+  ctx.moveTo(xPos - 200, yPos-150);
+  ctx.lineTo(xPos-200, yPos + 380);
+  ctx.lineTo(xPos-180, yPos+400);
+  ctx.lineTo(xPos + 450, yPos + 400);
+  ctx.lineTo(xPos+470, yPos+380);
+  ctx.lineTo(xPos+470, yPos-150);
+  ctx.lineTo(xPos+450, yPos-170);
+  ctx.lineTo(xPos-180, yPos-170);
+  ctx.closePath();
+  ctx.stroke();
+  //Content for instructions
+  if(instruTitlepara){
+  instruDiv = document.createElement("div");
+    body.appendChild(instruDiv);
+    instruDiv.style.position = "absolute";
+    instruDiv.style.top = "50%";
+    instruDiv.style.left = "50%";
+    instruDiv.style.transform = "translate(-50%, -50%)";
+  instruTitle = document.createElement("h1");
+    instruDiv.appendChild(instruTitle);
+    instruTitle.style.color = "white";
+    instruTitle.style.fontFamily = '"retro"';
+    instruTitle.innerText = "Controls";
+  instruTitlepara = false;
+  }
 }
